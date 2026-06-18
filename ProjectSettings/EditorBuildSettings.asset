@@ -4,5 +4,41 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: cf0c1afdc87c2434989dbf2da93c26ae
+  - enabled: 1
+    path: Assets/Scenes/PartnerDialogue.unity
+    guid: f55bb21a59b907b419d818d465095aaa
+  - enabled: 1
+    path: Assets/Scenes/CarScene.unity
+    guid: ed629911d2e629040a77169797631f1f
+  - enabled: 1
+    path: Assets/Scenes/SuspectDialogue.unity
+    guid: c2ead64fc98b9874fb498d74dd013f1a
+  - enabled: 1
+    path: Assets/Scenes/PartnerDialogue2.unity
+    guid: 185d45dedf20b054dbb75fa3aa4ed97d
+  - enabled: 1
+    path: Assets/Scenes/SuspectDialogue2.unity
+    guid: 6de45b2ac9a2ed64089f6b834b448e19
+  - enabled: 1
+    path: Assets/Scenes/PartnerDialogue3.unity
+    guid: bc1ccac4e84fabe4f9c00d1e21b14300
+  - enabled: 1
+    path: Assets/Scenes/TKP.unity
+    guid: 4e2a2efa0da7b9148979d536df1b9cbb
+  - enabled: 1
+    path: Assets/Scenes/MejaScene.unity
+    guid: cfab877ef61debd48b052678e7877bf0
+  - enabled: 1
+    path: Assets/Scenes/LemariScene.unity
+    guid: 11ef883c1994f964ba517510a03b13e7
+  - enabled: 1
+    path: Assets/Scenes/PintuScene.unity
+    guid: 3553b3b8aa0537742b3c5f3163549cbd
+  - enabled: 1
+    path: Assets/Scenes/PintuBelakangScene.unity
+    guid: d362b9798b431b74ba4ee416b5327074
   m_configObjects: {}
