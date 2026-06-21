@@ -9,30 +9,48 @@ public class TKPIntroManager : MonoBehaviour
     public TextMeshProUGUI countdownText;
     public RectTransform policeLineLeft;
     public RectTransform policeLineRight;
-
+    public GameObject transitionPanel;
     public AudioSource audioSource;
-    public AudioClip introBeepClip; 
+    public AudioClip introBeepClip;
 
     public float lineMoveDistance = 2560f;
     public float lineSpeed = 2f;
 
     Vector2 leftOpenPos, rightOpenPos, leftClosedPos, rightClosedPos;
 
+    private void Awake()
+    {
+        leftOpenPos = policeLineLeft.anchoredPosition;
+        rightOpenPos = policeLineRight.anchoredPosition;
+        leftClosedPos = Vector2.zero;
+        rightClosedPos = Vector2.zero;
+    }
+
     private void Start()
     {
         audioSource.loop = false;
-        instructionPanel.SetActive(true);
-        countdownText.gameObject.SetActive(false);
 
-        leftOpenPos = policeLineLeft.anchoredPosition;
-        rightOpenPos = policeLineRight.anchoredPosition;
-        leftClosedPos = leftOpenPos + Vector2.left * lineMoveDistance;
-        rightClosedPos = rightOpenPos + Vector2.right * lineMoveDistance;
-
-        policeLineLeft.anchoredPosition = leftOpenPos;
-        policeLineRight.anchoredPosition = rightOpenPos;
-        instructionPanelRect.localScale = Vector3.zero;
-        StartCoroutine(WobbleIn());
+        if (GameManager.Instance.hasSeenIntro)
+        {
+            instructionPanel.SetActive(false);
+            countdownText.gameObject.SetActive(false);
+            if (transitionPanel != null) transitionPanel.SetActive(false);
+            
+            policeLineLeft.anchoredPosition = leftOpenPos;
+            policeLineRight.anchoredPosition = rightOpenPos;
+        }
+        else
+        {
+            GameManager.Instance.hasSeenIntro = true;
+            instructionPanel.SetActive(true);
+            countdownText.gameObject.SetActive(false);
+            
+            policeLineLeft.anchoredPosition = leftClosedPos;
+            policeLineRight.anchoredPosition = rightClosedPos;
+            
+            instructionPanelRect.localScale = Vector3.zero;
+            StartCoroutine(WobbleIn());
+        }
     }
 
     public void OnClickUnderstood()
@@ -43,11 +61,7 @@ public class TKPIntroManager : MonoBehaviour
     IEnumerator IntroSequence()
     {
         yield return StartCoroutine(WobbleOut());
-        
-        // Memulai suara tepat setelah panel hilang
         audioSource.PlayOneShot(introBeepClip);
-        
-        // Hitungan mundur dan pergerakan garis berjalan beriringan dengan durasi audio
         yield return StartCoroutine(CountdownRoutine());
         yield return StartCoroutine(PoliceLineAnimation());
     }
@@ -84,16 +98,14 @@ public class TKPIntroManager : MonoBehaviour
     IEnumerator CountdownRoutine()
     {
         countdownText.gameObject.SetActive(true);
-        // Menampilkan 3, 2, 1 dengan jeda yang pas dengan tempo audio
         for (int i = 3; i > 0; i--)
         {
             countdownText.text = i.ToString();
             countdownText.transform.localScale = Vector3.one * 1.5f;
-            
             float t = 0f;
             while (t < 1f)
             {
-                t += Time.deltaTime * 1f; 
+                t += Time.deltaTime * 1f;
                 countdownText.transform.localScale = Vector3.Lerp(Vector3.one * 1.5f, Vector3.one, Mathf.SmoothStep(0f, 1f, t));
                 yield return null;
             }
@@ -108,8 +120,8 @@ public class TKPIntroManager : MonoBehaviour
         {
             t += Time.deltaTime * lineSpeed;
             float eased = Mathf.SmoothStep(0f, 1f, t);
-            policeLineLeft.anchoredPosition = Vector2.Lerp(leftOpenPos, leftClosedPos, eased);
-            policeLineRight.anchoredPosition = Vector2.Lerp(rightOpenPos, rightClosedPos, eased);
+            policeLineLeft.anchoredPosition = Vector2.Lerp(leftClosedPos, leftOpenPos, eased);
+            policeLineRight.anchoredPosition = Vector2.Lerp(rightClosedPos, rightOpenPos, eased);
             yield return null;
         }
     }

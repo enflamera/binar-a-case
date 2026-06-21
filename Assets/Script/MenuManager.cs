@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class MenuTab : MonoBehaviour
 {
+    // Pastikan nama variabelnya sama
+    public InventoryManager inventoryManager; 
     public GameObject forensicPanel;
     public GameObject buktiPanel;
     public GameObject suspectPanel;
@@ -41,6 +43,12 @@ public class MenuTab : MonoBehaviour
         buktiActive.SetActive(true);
         suspectActive.SetActive(false);
         notulenActive.SetActive(false);
+
+        // PERBAIKAN: Menggunakan inventoryManager, bukan inventoryController
+        if (inventoryManager != null) 
+        {
+            inventoryManager.RefreshUI();
+        }
     }
 
     public void ShowSuspect()

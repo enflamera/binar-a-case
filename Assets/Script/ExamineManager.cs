@@ -5,10 +5,9 @@ using System.Collections;
 public class ExamineManager : MonoBehaviour
 {
     public RectTransform examineButton;
-
     private string selectedScene;
     private GameObject selectedPanel;
-
+    private ItemPickup selectedItemPickup;
     private Transform currentSelected;
     private Vector3 originalScale;
 
@@ -17,14 +16,11 @@ public class ExamineManager : MonoBehaviour
         examineButton.gameObject.SetActive(false);
     }
 
-    public void ShowButton(
-        Vector3 pos,
-        string sceneName,
-        Transform clickedObject,
-        GameObject panelToOpen = null)
+    public void ShowButton(Vector3 pos, string sceneName, Transform clickedObject, GameObject panelToOpen = null, ItemPickup itemPickup = null)
     {
         selectedScene = sceneName;
         selectedPanel = panelToOpen;
+        selectedItemPickup = itemPickup;
 
         if (currentSelected != null)
         {
@@ -33,7 +29,6 @@ public class ExamineManager : MonoBehaviour
 
         currentSelected = clickedObject;
         originalScale = clickedObject.localScale;
-
         clickedObject.localScale = originalScale * 1.03f;
 
         examineButton.position = pos;
@@ -46,16 +41,22 @@ public class ExamineManager : MonoBehaviour
     public void HideButton()
     {
         examineButton.gameObject.SetActive(false);
-
         if (currentSelected != null)
         {
             currentSelected.localScale = originalScale;
             currentSelected = null;
         }
     }
-    
+
     public void OpenTarget()
     {
+        if (selectedItemPickup != null)
+        {
+            selectedItemPickup.PerformExamineAction();
+            HideButton();
+            return;
+        }
+
         if (selectedPanel != null)
         {
             selectedPanel.SetActive(true);
@@ -72,36 +73,18 @@ public class ExamineManager : MonoBehaviour
     IEnumerator PopAnimation()
     {
         examineButton.localScale = Vector3.zero;
-
         float t = 0f;
-
         while (t < 0.15f)
         {
             t += Time.deltaTime;
-
-            examineButton.localScale =
-                Vector3.Lerp(
-                    Vector3.zero,
-                    Vector3.one * 1.15f,
-                    t / 0.15f
-                );
-
+            examineButton.localScale = Vector3.Lerp(Vector3.zero, Vector3.one * 1.15f, t / 0.15f);
             yield return null;
         }
-
         t = 0f;
-
         while (t < 0.08f)
         {
             t += Time.deltaTime;
-
-            examineButton.localScale =
-                Vector3.Lerp(
-                    Vector3.one * 1.15f,
-                    Vector3.one,
-                    t / 0.08f
-                );
-
+            examineButton.localScale = Vector3.Lerp(Vector3.one * 1.15f, Vector3.one, t / 0.08f);
             yield return null;
         }
     }

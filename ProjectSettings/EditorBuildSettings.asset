@@ -41,4 +41,19 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PintuBelakangScene.unity
     guid: d362b9798b431b74ba4ee416b5327074
+  - enabled: 1
+    path: Assets/Scenes/TKP2.unity
+    guid: df602f25d9f41fe4bbf2e7a23a8da1c3
+  - enabled: 1
+    path: Assets/Scenes/MejaBaskoroScene.unity
+    guid: 148f24c34c25ced47bae5c5baa93fa2d
+  - enabled: 1
+    path: Assets/Scenes/Meja2BaskoroScene.unity
+    guid: 018fb64bfd97de440bd86924ff2c8537
+  - enabled: 1
+    path: Assets/Scenes/MapBaskoroScene.unity
+    guid: dfa1c3576bfe94a4c9e4b047e33fb137
+  - enabled: 1
+    path: Assets/Scenes/MejaCloseBaskoroScene.unity
+    guid: f5e50d3ed6c78694e81230bf6ffa0322
   m_configObjects: {}

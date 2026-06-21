@@ -728,7 +728,8 @@ MonoBehaviour:
   doorOpenSFX: {fileID: 8300000, guid: a84dbffd4b1638d42800263de5af49dc, type: 3}
   footstepsSFX: {fileID: 8300000, guid: d3384a703aab5d2438be77c31f616636, type: 3}
   fadePanel: {fileID: 1160700009}
-  nextScene: HalamanBelakangScene
+  nextScene: PintuBelakangScene
+  keyData: {fileID: 11400000, guid: 46812219ace67824281117a8c09b99cb, type: 2}
 --- !u!114 &722369093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1405,7 +1406,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab08ac68edf32484caba910c909581c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventory: []
   hasKey: 0
+  hasSeenIntro: 0
 --- !u!4 &1684011111
 Transform:
   m_ObjectHideFlags: 0
