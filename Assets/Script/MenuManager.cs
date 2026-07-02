@@ -1,9 +1,11 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MenuTab : MonoBehaviour
 {
-    // Pastikan nama variabelnya sama
-    public InventoryManager inventoryManager; 
+    public InventoryManager inventoryManager;
+
     public GameObject forensicPanel;
     public GameObject buktiPanel;
     public GameObject suspectPanel;
@@ -14,13 +16,86 @@ public class MenuTab : MonoBehaviour
     public GameObject suspectActive;
     public GameObject notulenActive;
 
+    [Header("Forensic Lock")]
+    public GameObject forensicLockIcon;
+    public Image forensicButtonBG;
+    public TMP_Text forensicButtonText;
+
     void Start()
     {
-        ShowForensic();
+        UpdateForensicLock();
+
+        if (ForensicManager.Instance != null &&
+            ForensicManager.Instance.forensicMenuUnlocked)
+        {
+            ShowForensic();
+        }
+        else
+        {
+            ShowBukti();
+        }
+    }
+
+    void OnEnable()
+    {
+        UpdateForensicLock();
+    }
+
+    public void UpdateForensicLock()
+    {
+        bool unlocked =
+            ForensicManager.Instance != null &&
+            ForensicManager.Instance.forensicMenuUnlocked;
+
+        if (forensicLockIcon != null)
+            forensicLockIcon.SetActive(!unlocked);
+
+        if (unlocked)
+            UndimForensicButton();
+        else
+            DimForensicButton();
+    }
+
+    void DimForensicButton()
+    {
+        if (forensicButtonBG != null)
+        {
+            Color bg = forensicButtonBG.color;
+            bg.a = 0.35f;
+            forensicButtonBG.color = bg;
+        }
+
+        if (forensicButtonText != null)
+        {
+            Color tc = forensicButtonText.color;
+            tc.a = 0.35f;
+            forensicButtonText.color = tc;
+        }
+    }
+
+    void UndimForensicButton()
+    {
+        if (forensicButtonBG != null)
+        {
+            Color bg = forensicButtonBG.color;
+            bg.a = 1f;
+            forensicButtonBG.color = bg;
+        }
+
+        if (forensicButtonText != null)
+        {
+            Color tc = forensicButtonText.color;
+            tc.a = 1f;
+            forensicButtonText.color = tc;
+        }
     }
 
     public void ShowForensic()
     {
+        if (ForensicManager.Instance == null ||
+            !ForensicManager.Instance.forensicMenuUnlocked)
+            return;
+
         forensicPanel.SetActive(true);
         buktiPanel.SetActive(false);
         suspectPanel.SetActive(false);
@@ -44,8 +119,7 @@ public class MenuTab : MonoBehaviour
         suspectActive.SetActive(false);
         notulenActive.SetActive(false);
 
-        // PERBAIKAN: Menggunakan inventoryManager, bukan inventoryController
-        if (inventoryManager != null) 
+        if (inventoryManager != null)
         {
             inventoryManager.RefreshUI();
         }
@@ -62,6 +136,11 @@ public class MenuTab : MonoBehaviour
         buktiActive.SetActive(false);
         suspectActive.SetActive(true);
         notulenActive.SetActive(false);
+
+        if (SuspectUIController.Instance != null)
+        {
+            SuspectUIController.Instance.OpenFirstUnlocked();
+        }
     }
 
     public void ShowNotulen()

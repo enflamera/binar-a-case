@@ -36,5 +36,17 @@ public class PartnerDialogue1 : MonoBehaviour
         };
 
         dialogueManager.SetDialogue(data);
+        dialogueManager.OnDialogueEnded += OnDialogueComplete;
+    }
+
+    private void OnDialogueComplete()
+    {
+        dialogueManager.OnDialogueEnded -= OnDialogueComplete;
+
+        if (SuspectManager.Instance != null)
+        {
+            SuspectManager.Instance.UnlockSuspect(1);
+            SuspectManager.Instance.pendingPopupSuspect = 1;
+        }
     }
 }

@@ -161,6 +161,7 @@ MonoBehaviour:
   nextScene: CarScene
   typingSpeed: 0.04
   transisi: {fileID: 2028583867}
+  testimony: {fileID: 0}
 --- !u!4 &231649910
 Transform:
   m_ObjectHideFlags: 0
@@ -328,7 +329,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &240692595
 RectTransform:
   m_ObjectHideFlags: 0

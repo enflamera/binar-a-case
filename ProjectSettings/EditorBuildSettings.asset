@@ -24,6 +24,9 @@ EditorBuildSettings:
     path: Assets/Scenes/SuspectDialogue2.unity
     guid: 6de45b2ac9a2ed64089f6b834b448e19
   - enabled: 1
+    path: Assets/Scenes/Beranda.unity
+    guid: a5d8e1158421b3a43b5140b0f97159d4
+  - enabled: 1
     path: Assets/Scenes/PartnerDialogue3.unity
     guid: bc1ccac4e84fabe4f9c00d1e21b14300
   - enabled: 1
@@ -38,6 +41,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PintuScene.unity
     guid: 3553b3b8aa0537742b3c5f3163549cbd
+  - enabled: 1
+    path: Assets/Scenes/ForensicDialogue.unity
+    guid: 31785949a474bb349a9ed510c813162b
   - enabled: 1
     path: Assets/Scenes/PintuBelakangScene.unity
     guid: d362b9798b431b74ba4ee416b5327074
@@ -56,4 +62,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MejaCloseBaskoroScene.unity
     guid: f5e50d3ed6c78694e81230bf6ffa0322
+  - enabled: 1
+    path: Assets/Scenes/PartnerDialogue4.unity
+    guid: cf31ae4c6db37fb48ae5860ab3947320
   m_configObjects: {}

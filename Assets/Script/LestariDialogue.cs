@@ -51,5 +51,16 @@ public class LestariDialogue : MonoBehaviour
         };
 
         dialogueManager.SetDialogue(data);
+        dialogueManager.OnDialogueEnded += OnDialogueComplete;
+    }
+
+    private void OnDialogueComplete()
+    {
+        dialogueManager.OnDialogueEnded -= OnDialogueComplete;
+
+        if (SuspectManager.Instance != null)
+        {
+            SuspectManager.Instance.UnlockSuspect(0, false);
+        }
     }
 }

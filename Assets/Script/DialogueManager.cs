@@ -1,10 +1,12 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using System.Collections;
+using System;
 
 public class DialogueManager : MonoBehaviour
 {
+    public Action OnDialogueEnded;
+
     [Header("Boxes")]
     public GameObject daniBox;
     public GameObject nBox;
@@ -22,13 +24,16 @@ public class DialogueManager : MonoBehaviour
     public float typingSpeed = 0.05f;
     public TransisiLokal transisi;
 
+    [Header("Testimony")]
+    public WitnessTestimony testimony;
+
+    [Header("Evidence Popup")]
+    public EvidencePopup evidencePopup;
+
     private DialogueData[] dialogues;
-
-    private int currentIndex = 0;
-    private bool isTyping = false;
-
+    private int currentIndex;
+    private bool isTyping;
     private string currentFullText;
-
     private Coroutine typingCoroutine;
 
     void Awake()
@@ -43,8 +48,10 @@ public class DialogueManager : MonoBehaviour
     public void SetDialogue(DialogueData[] newDialogues)
     {
         dialogues = newDialogues;
-
         currentIndex = 0;
+
+        if (evidencePopup != null)
+            evidencePopup.Hide();
 
         ShowDialogue();
     }
@@ -55,11 +62,35 @@ public class DialogueManager : MonoBehaviour
             return;
 
         DialogueData current = dialogues[currentIndex];
-
         currentFullText = current.text;
 
         daniText.text = "";
         nText.text = "";
+
+        if (current is EvidenceDialogueData evidenceData)
+        {
+            evidencePopup.Show(
+                evidenceData.popupSprite,
+                evidenceData.evidenceTitle
+            );
+
+            if (!ForensicManager.Instance.IsEvidenceUnlocked(evidenceData.evidenceID))
+            {
+                ForensicEvidence newEvidence = new ForensicEvidence();
+
+                newEvidence.evidenceID = evidenceData.evidenceID;
+                newEvidence.evidenceName = evidenceData.evidenceTitle;
+                newEvidence.slotSprite = evidenceData.popupSprite;
+                newEvidence.tvSprite = evidenceData.tvSprite;
+
+                ForensicManager.Instance.AddEvidence(newEvidence);
+            }
+
+            if (evidenceData.evidenceID == "bukti_pundak")
+            {
+                StartCoroutine(HideEvidenceAfterTyping());
+            }
+        }
 
         if (typingCoroutine != null)
             StopCoroutine(typingCoroutine);
@@ -89,27 +120,25 @@ public class DialogueManager : MonoBehaviour
     IEnumerator TypeText(TMP_Text targetText, string message)
     {
         isTyping = true;
-
         targetText.text = "";
 
         yield return new WaitForSeconds(0.15f);
 
-        foreach (char letter in message)
+        foreach (char c in message)
         {
-            targetText.text += letter;
-
+            targetText.text += c;
             yield return new WaitForSeconds(typingSpeed);
         }
 
         isTyping = false;
+        typingCoroutine = null;
     }
 
     public void NextDialogue()
     {
-        if (dialogues == null)
+        if (dialogues == null || dialogues.Length == 0)
             return;
 
-        // Kalau masih ngetik, langsung tampilkan full text
         if (isTyping)
         {
             if (typingCoroutine != null)
@@ -123,14 +152,27 @@ public class DialogueManager : MonoBehaviour
                 nText.text = currentFullText;
 
             isTyping = false;
+            typingCoroutine = null;
             return;
+        }
+
+        DialogueData finished = dialogues[currentIndex];
+
+        if (finished.isWitness)
+        {
+            testimony?.SaveTestimony();
         }
 
         currentIndex++;
 
         if (currentIndex >= dialogues.Length)
         {
-            transisi.PindahScene(nextScene);
+            if (evidencePopup != null)
+                evidencePopup.Hide();
+
+            OnDialogueEnded?.Invoke();
+
+            transisi?.PindahScene(nextScene);
             return;
         }
 
@@ -139,6 +181,25 @@ public class DialogueManager : MonoBehaviour
 
     public void SkipDialogue()
     {
-        transisi.PindahScene(nextScene);
+        if (evidencePopup != null)
+            evidencePopup.Hide();
+
+        testimony?.SaveTestimony();
+
+        OnDialogueEnded?.Invoke();
+
+        transisi?.PindahScene(nextScene);
+    }
+
+    IEnumerator HideEvidenceAfterTyping()
+    {
+        while (isTyping)
+        {
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(0.5f);
+
+        evidencePopup.Hide();
     }
 }

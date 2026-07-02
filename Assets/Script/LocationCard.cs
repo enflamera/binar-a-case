@@ -22,7 +22,7 @@ public class LocationCard : MonoBehaviour
         dialogueUI.SetActive(false);
 
         locationText.text =
-            "09.12 WIB\n\n" +
+            "27 Mei 2024, 18.12 WIB\n\n" +
             "Tempat Kejadian Perkara\n\n" +
             "Kontrakan Kemuning\n" +
             "Palmerah, Jakarta Barat";

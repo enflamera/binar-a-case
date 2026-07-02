@@ -1226,7 +1226,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1789666622
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1618,9 +1618,10 @@ MonoBehaviour:
   nCharacter: {fileID: 811191970}
   daniText: {fileID: 1947453987}
   nText: {fileID: 1813169277}
-  nextScene: SuspectDialogue2
+  nextScene: Beranda
   typingSpeed: 0.04
   transisi: {fileID: 212540146}
+  testimony: {fileID: 0}
 --- !u!4 &1934810400
 Transform:
   m_ObjectHideFlags: 0

@@ -270,6 +270,8 @@ MonoBehaviour:
   nextScene: TKP
   typingSpeed: 0.04
   transisi: {fileID: 1471920772}
+  testimony: {fileID: 0}
+  evidencePopup: {fileID: 0}
 --- !u!4 &362636693
 Transform:
   m_ObjectHideFlags: 0
@@ -303,7 +305,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &374942483
 RectTransform:
   m_ObjectHideFlags: 0

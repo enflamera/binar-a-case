@@ -1,22 +1,51 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Collections;
 
 public class NoteUIController : MonoBehaviour
 {
-    public Transform contentParent;
+    [Header("Parents")]
+    public Transform notesParent;
+    public Transform testimonyParent;
+
+    [Header("Prefabs")]
     public GameObject notePrefab;
+    public GameObject testimonyPrefab;
+
+    [Header("UI Kontrol Halaman (TMPRO)")]
     public TextMeshProUGUI pageText;
     public Button nextButton;
     public Button prevButton;
 
-    int currentPage;
-    int notesPerPage = 4;
-
-    void Start()
+    public enum NoteTab
     {
-        if (NoteManager.Instance != null)
-            NoteManager.Instance.OnNotesChanged += RenderPage;
+        Investigation,
+        Testimony
+    }
+
+    public NoteTab currentTab = NoteTab.Investigation;
+
+    private int currentPage;
+    private int notesPerPage = 4;
+    private int testimonyPerPage = 1;
+
+    int GetItemsPerPage()
+    {
+        return currentTab == NoteTab.Investigation ? notesPerPage : testimonyPerPage;
+    }
+
+    IEnumerator Start()
+    {
+        yield return null;
+
+        while (NoteManager.Instance == null)
+            yield return null;
+
+        NoteManager.Instance.OnNotesChanged += HandleNotesChanged;
+
+        currentTab = NoteTab.Investigation;
+        currentPage = 0;
 
         RenderPage();
     }
@@ -24,12 +53,52 @@ public class NoteUIController : MonoBehaviour
     void OnDestroy()
     {
         if (NoteManager.Instance != null)
-            NoteManager.Instance.OnNotesChanged -= RenderPage;
+            NoteManager.Instance.OnNotesChanged -= HandleNotesChanged;
+    }
+
+    void JumpToLastPage()
+    {
+        int totalPages = GetTotalPageCount();
+        currentPage = Mathf.Max(0, totalPages - 1);
+    }
+
+    void HandleNotesChanged()
+    {
+        JumpToLastPage();
+        RenderPage();
+    }
+
+    public void OpenInvestigationTab()
+    {
+        currentTab = NoteTab.Investigation;
+        currentPage = 0;
+        RenderPage();
+    }
+
+    public void OpenTestimonyTab()
+    {
+        currentTab = NoteTab.Testimony;
+        JumpToLastPage();
+        RenderPage();
+    }
+
+    int GetTotalPageCount()
+    {
+        if (NoteManager.Instance == null)
+            return 1;
+
+        int count = currentTab == NoteTab.Investigation
+            ? NoteManager.Instance.notes.Count
+            : NoteManager.Instance.testimonyPages.Count;
+
+        return Mathf.Max(1, Mathf.CeilToInt((float)count / GetItemsPerPage()));
     }
 
     public void Next()
     {
-        if (currentPage < GetMaxPage() - 1)
+        int totalPages = GetTotalPageCount();
+
+        if (currentPage < totalPages - 1)
         {
             currentPage++;
             RenderPage();
@@ -45,53 +114,78 @@ public class NoteUIController : MonoBehaviour
         }
     }
 
-    int GetMaxPage()
+    void Clear(Transform parent)
     {
-        if (NoteManager.Instance == null) return 0;
-        return Mathf.CeilToInt((float)NoteManager.Instance.notes.Count / notesPerPage);
+        if (parent == null) return;
+
+        for (int i = parent.childCount - 1; i >= 0; i--)
+            Destroy(parent.GetChild(i).gameObject);
+    }
+
+    void RenderNotes()
+    {
+        if (NoteManager.Instance == null) return;
+
+        var notes = NoteManager.Instance.notes;
+        int start = currentPage * notesPerPage;
+
+        for (int i = 0; i < notesPerPage; i++)
+        {
+            int index = start + i;
+            if (index >= notes.Count) break;
+
+            GameObject obj = Instantiate(notePrefab, notesParent);
+            NoteItemUI ui = obj.GetComponentInChildren<NoteItemUI>();
+
+            if (ui != null)
+                ui.Set(notes[index].title, notes[index].content);
+        }
+    }
+
+    void RenderTestimony()
+    {
+        if (NoteManager.Instance == null) return;
+
+        var testimonies = NoteManager.Instance.testimonyPages;
+        int start = currentPage * testimonyPerPage;
+
+        for (int i = 0; i < testimonyPerPage; i++)
+        {
+            int index = start + i;
+            if (index >= testimonies.Count) break;
+
+            GameObject obj = Instantiate(testimonyPrefab, testimonyParent);
+            Image img = obj.GetComponent<Image>();
+
+            if (img != null && testimonies[index] != null)
+                img.sprite = testimonies[index];
+        }
     }
 
     public void RenderPage()
     {
         if (NoteManager.Instance == null) return;
+        if (notesParent == null || testimonyParent == null) return;
 
-        foreach (Transform child in contentParent)
+        Clear(notesParent);
+        Clear(testimonyParent);
+
+        if (currentTab == NoteTab.Investigation)
+            RenderNotes();
+        else
+            RenderTestimony();
+
+        int totalPages = GetTotalPageCount();
+
+        if (pageText != null)
         {
-            Destroy(child.gameObject);
+            pageText.text = $"Halaman {currentPage + 1}/{totalPages}";
         }
 
-        var notes = NoteManager.Instance.notes;
+        if (prevButton != null)
+            prevButton.interactable = currentPage > 0;
 
-        if (notes.Count == 0)
-        {
-            pageText.text = "0/0";
-            nextButton.interactable = false;
-            prevButton.interactable = false;
-            return;
-        }
-
-        int startIndex = currentPage * notesPerPage;
-
-        for (int i = 0; i < notesPerPage; i++)
-        {
-            int index = startIndex + i;
-
-            if (index >= notes.Count) break;
-
-            var note = notes[index];
-
-            GameObject obj = Instantiate(notePrefab, contentParent);
-
-            NoteItemUI ui = obj.GetComponentInChildren<NoteItemUI>();
-
-            if (ui == null) return;
-
-            ui.Set(note.title, note.content);
-        }
-
-        pageText.text = $"{currentPage + 1}/{GetMaxPage()}";
-
-        prevButton.interactable = currentPage > 0;
-        nextButton.interactable = currentPage < GetMaxPage() - 1;
+        if (nextButton != null)
+            nextButton.interactable = currentPage < totalPages - 1;
     }
 }
