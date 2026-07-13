@@ -6,6 +6,8 @@ public class DragObject : MonoBehaviour,
     IDragHandler,
     IEndDragHandler
 {
+    public string evidenceID;
+
     private RectTransform rectTransform;
     private Canvas canvas;
 
@@ -27,5 +29,9 @@ public class DragObject : MonoBehaviour,
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (!string.IsNullOrEmpty(evidenceID))
+        {
+            GameManager.Instance.CompleteEvidence(evidenceID);
+        }
     }
 }

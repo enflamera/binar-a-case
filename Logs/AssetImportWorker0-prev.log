@@ -15,7 +15,7 @@ D:/KULIAH/Game Programming/Project/TUBES
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-54038
+51548
 Successfully changed project path to: D:/KULIAH/Game Programming/Project/TUBES
 D:/KULIAH/Game Programming/Project/TUBES
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
@@ -49,11 +49,11 @@ D:/KULIAH/Game Programming/Project/TUBES
     "memorysetup-temp-allocator-size-cloud-worker=32768"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Player connection [14204] Host "[IP] 192.168.56.1 [Port] 0 [Flags] 2 [Guid] 2765861080 [EditorId] 2765861080 [Version] 1048832 [Id] WindowsEditor(7,Khumaira) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
+Player connection [1836] Host "[IP] 192.168.56.1 [Port] 0 [Flags] 2 [Guid] 3802209825 [EditorId] 3802209825 [Version] 1048832 [Id] WindowsEditor(7,Khumaira) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
 
-Player connection [14204] Host "[IP] 192.168.56.1 [Port] 0 [Flags] 2 [Guid] 2765861080 [EditorId] 2765861080 [Version] 1048832 [Id] WindowsEditor(7,Khumaira) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
+Player connection [1836] Host "[IP] 192.168.56.1 [Port] 0 [Flags] 2 [Guid] 3802209825 [EditorId] 3802209825 [Version] 1048832 [Id] WindowsEditor(7,Khumaira) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
 
-Refreshing native plugins compatible for Editor in 7978.27 ms, found 4 plugins.
+Refreshing native plugins compatible for Editor in 6297.08 ms, found 4 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2022.3.6f1 (b9e6e7e9fa2d)
 [Subsystems] Discovering subsystems at path D:/Program Files/Unity 2022.3.6f1/Editor/Data/Resources/UnitySubsystems
@@ -69,5 +69,5 @@ Initialize mono
 Mono path[0] = 'D:/Program Files/Unity 2022.3.6f1/Editor/Data/Managed'
 Mono path[1] = 'D:/Program Files/Unity 2022.3.6f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'D:/Program Files/Unity 2022.3.6f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56208
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56720
 Begin MonoManager ReloadAssembly

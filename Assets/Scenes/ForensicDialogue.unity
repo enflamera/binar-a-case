@@ -1922,7 +1922,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1842882542
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2131,6 +2131,8 @@ MonoBehaviour:
   transisi: {fileID: 1738553471}
   testimony: {fileID: 0}
   evidencePopup: {fileID: 597754399}
+  isForensicDialogue: 1
+  forensicScoreKey: Forensic_Base
 --- !u!4 &1946782797
 Transform:
   m_ObjectHideFlags: 0

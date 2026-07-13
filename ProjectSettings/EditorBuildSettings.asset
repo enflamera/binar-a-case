@@ -42,11 +42,20 @@ EditorBuildSettings:
     path: Assets/Scenes/PintuScene.unity
     guid: 3553b3b8aa0537742b3c5f3163549cbd
   - enabled: 1
-    path: Assets/Scenes/ForensicDialogue.unity
-    guid: 31785949a474bb349a9ed510c813162b
+    path: Assets/Scenes/PartnerDialogue4.unity
+    guid: cf31ae4c6db37fb48ae5860ab3947320
   - enabled: 1
     path: Assets/Scenes/PintuBelakangScene.unity
     guid: d362b9798b431b74ba4ee416b5327074
+  - enabled: 1
+    path: Assets/Scenes/ForensicDialogue.unity
+    guid: 31785949a474bb349a9ed510c813162b
+  - enabled: 1
+    path: Assets/Scenes/CarScene2.unity
+    guid: 3d525c1df4fd34a4fbf2932d7b9d5113
+  - enabled: 1
+    path: Assets/Scenes/CSDialogue.unity
+    guid: b589d99c2a0188b448235edfe3b316e1
   - enabled: 1
     path: Assets/Scenes/TKP2.unity
     guid: df602f25d9f41fe4bbf2e7a23a8da1c3
@@ -63,6 +72,21 @@ EditorBuildSettings:
     path: Assets/Scenes/MejaCloseBaskoroScene.unity
     guid: f5e50d3ed6c78694e81230bf6ffa0322
   - enabled: 1
-    path: Assets/Scenes/PartnerDialogue4.unity
-    guid: cf31ae4c6db37fb48ae5860ab3947320
+    path: Assets/Scenes/PartnerDialogue6.unity
+    guid: ae50202853bb4d44ba1bd11e741a5f2b
+  - enabled: 1
+    path: Assets/Scenes/JodiDialogue.unity
+    guid: 6ebc73edc00bb714da982deb86cf28ad
+  - enabled: 1
+    path: Assets/Scenes/PartnerDialogue5.unity
+    guid: 88ca6a9824994e946ba3202682a93f9f
+  - enabled: 1
+    path: Assets/Scenes/SuspectDialogue3.unity
+    guid: 668b5354af7c1e14f810315ce2c04f79
+  - enabled: 1
+    path: Assets/Scenes/Pengadilan.unity
+    guid: 72d67be50602dcf4ca72b5abfa5e5c7e
+  - enabled: 1
+    path: Assets/Scenes/PartnerDialogue7.unity
+    guid: 773024135d0f1ec4fb520eb7319273a6
   m_configObjects: {}

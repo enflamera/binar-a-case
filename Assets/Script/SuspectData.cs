@@ -10,4 +10,6 @@ public class SuspectData
     public bool unlocked;
     public bool interrogated;
     public bool canInterrogate;
+
+    public bool isCulprit;
 }

@@ -8,6 +8,11 @@ public class SuspectUIController : MonoBehaviour
 
     public GameObject[] suspectPanels;
     public GameObject[] interrogateButtons;
+    public GameObject[] arrestButtons;
+
+    public TransisiLokal transisi;
+    public string courtSceneName = "Pengadilan";
+    public string wrongArrestSceneName = "PartnerDialogue7";
 
     [Header("Animation Settings")]
     public float animDuration = 0.25f;
@@ -16,7 +21,7 @@ public class SuspectUIController : MonoBehaviour
 
     private int currentIndex;
     private Coroutine activeTransitionRoutine;
-    
+
     private Vector2 nextBtnOriginalPos;
     private Vector2 prevBtnOriginalPos;
     private bool initializedButtons;
@@ -70,6 +75,11 @@ public class SuspectUIController : MonoBehaviour
         }
     }
 
+    bool ShouldShowArrestButton()
+    {
+        return GameManager.Instance != null && GameManager.Instance.jodiInterrogationCompleted;
+    }
+
     void ShowCurrent()
     {
         for (int i = 0; i < suspectPanels.Length; i++)
@@ -90,6 +100,11 @@ public class SuspectUIController : MonoBehaviour
                 {
                     interrogateButtons[i].SetActive(showButton);
                 }
+
+                if (arrestButtons.Length > i && arrestButtons[i] != null)
+                {
+                    arrestButtons[i].SetActive(ShouldShowArrestButton());
+                }
             }
         }
 
@@ -106,7 +121,7 @@ public class SuspectUIController : MonoBehaviour
         GameObject targetPanel = suspectPanels[targetIndex];
         CanvasGroup targetGroup = targetPanel.GetComponent<CanvasGroup>();
         if (targetGroup == null) targetGroup = targetPanel.AddComponent<CanvasGroup>();
-        
+
         targetGroup.alpha = 0f;
 
         Vector2 nextBtnOffset = nextBtnOriginalPos + new Vector2(40f, 0);
@@ -138,6 +153,11 @@ public class SuspectUIController : MonoBehaviour
             interrogateButtons[currentIndex].SetActive(showButton);
         }
 
+        if (arrestButtons.Length > currentIndex && arrestButtons[currentIndex] != null)
+        {
+            arrestButtons[currentIndex].SetActive(ShouldShowArrestButton());
+        }
+
         elapsed = 0f;
         while (elapsed < animDuration)
         {
@@ -155,7 +175,7 @@ public class SuspectUIController : MonoBehaviour
         targetGroup.alpha = 1f;
         if (nextButtonRect != null) nextButtonRect.anchoredPosition = nextBtnOriginalPos;
         if (prevButtonRect != null) prevButtonRect.anchoredPosition = prevBtnOriginalPos;
-        
+
         activeTransitionRoutine = null;
     }
 
@@ -203,5 +223,21 @@ public class SuspectUIController : MonoBehaviour
             }
 
         } while (prevIndex != start);
+    }
+
+    public void AttemptArrest(int suspectIndex)
+    {
+        bool correct = SuspectManager.Instance.suspects[suspectIndex].isCulprit;
+
+        ArrestManager.Instance.RegisterArrest(suspectIndex, correct);
+
+        if (correct)
+        {
+            transisi.PindahScene(courtSceneName);
+        }
+        else
+        {
+            transisi.PindahScene(wrongArrestSceneName);
+        }
     }
 }

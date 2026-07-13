@@ -16,6 +16,11 @@ public class TKPIntroManager : MonoBehaviour
     public float lineMoveDistance = 2560f;
     public float lineSpeed = 2f;
 
+    public string timerID;
+    public float timerDuration;
+
+    public string locationID = "TKP2";
+
     Vector2 leftOpenPos, rightOpenPos, leftClosedPos, rightClosedPos;
 
     private void Awake()
@@ -30,24 +35,31 @@ public class TKPIntroManager : MonoBehaviour
     {
         audioSource.loop = false;
 
-        if (GameManager.Instance.hasSeenIntro)
+        if (!string.IsNullOrEmpty(timerID))
+        {
+            TKPTimerManager.Instance?.PresetDisplay(timerDuration);
+        }
+
+        if (GameManager.Instance.HasSeenIntro(locationID))
         {
             instructionPanel.SetActive(false);
             countdownText.gameObject.SetActive(false);
             if (transitionPanel != null) transitionPanel.SetActive(false);
-            
+
             policeLineLeft.anchoredPosition = leftOpenPos;
             policeLineRight.anchoredPosition = rightOpenPos;
+
+            StartTKPTimer();
         }
         else
         {
-            GameManager.Instance.hasSeenIntro = true;
+            GameManager.Instance.MarkIntroSeen(locationID);
             instructionPanel.SetActive(true);
             countdownText.gameObject.SetActive(false);
-            
+
             policeLineLeft.anchoredPosition = leftClosedPos;
             policeLineRight.anchoredPosition = rightClosedPos;
-            
+
             instructionPanelRect.localScale = Vector3.zero;
             StartCoroutine(WobbleIn());
         }
@@ -64,6 +76,16 @@ public class TKPIntroManager : MonoBehaviour
         audioSource.PlayOneShot(introBeepClip);
         yield return StartCoroutine(CountdownRoutine());
         yield return StartCoroutine(PoliceLineAnimation());
+
+        StartTKPTimer();
+    }
+
+    void StartTKPTimer()
+    {
+        if (!string.IsNullOrEmpty(timerID))
+        {
+            TKPTimerManager.Instance?.StartTimer(timerID, timerDuration);
+        }
     }
 
     IEnumerator WobbleIn()

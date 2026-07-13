@@ -7,7 +7,7 @@ public class InventoryManager : MonoBehaviour
     public Transform contentPanel;
     public Button nextButton;
     public Button prevButton;
-    
+
     private int itemsPerPage = 6;
     private int currentPage = 0;
 
@@ -30,16 +30,14 @@ public class InventoryManager : MonoBehaviour
         for (int i = startIndex; i < endIndex; i++)
         {
             EvidenceData data = GameManager.Instance.inventory[i];
+
             GameObject newSlot = Instantiate(slotPrefab, contentPanel);
-            
-            Transform iconTransform = newSlot.transform.Find("Icon");
-            if (iconTransform != null)
+
+            InventorySlot slot = newSlot.GetComponent<InventorySlot>();
+
+            if (slot != null)
             {
-                Image iconImage = iconTransform.GetComponent<Image>();
-                if (iconImage != null && data.icon != null)
-                {
-                    iconImage.sprite = data.icon;
-                }
+                slot.Setup(data);
             }
         }
 
@@ -50,7 +48,10 @@ public class InventoryManager : MonoBehaviour
     {
         if (nextButton != null)
         {
-            nextButton.gameObject.SetActive(totalItems > itemsPerPage && (currentPage + 1) * itemsPerPage < totalItems);
+            nextButton.gameObject.SetActive(
+                totalItems > itemsPerPage &&
+                (currentPage + 1) * itemsPerPage < totalItems
+            );
         }
 
         if (prevButton != null)

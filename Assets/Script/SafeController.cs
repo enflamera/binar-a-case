@@ -18,7 +18,7 @@ public class SafeController : MonoBehaviour
     public string noteContent;
 
     string currentPin = "";
-    const string correctPin = "793510";
+    const string correctPin = "739510";
 
     void Start()
     {

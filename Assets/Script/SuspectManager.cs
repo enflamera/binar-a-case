@@ -20,12 +20,26 @@ public class SuspectManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    public SuspectData GetSuspect(int index)
+    {
+        if (index < 0 || index >= suspects.Count)
+            return null;
+
+        return suspects[index];
+    }
+
     public void UnlockSuspect(int index, bool showPopup = true)
     {
         if (index < 0 || index >= suspects.Count) return;
         if (suspects[index].unlocked) return;
 
         suspects[index].unlocked = true;
+
+        ScoreManager.Instance?.AddScore(
+            100,
+            ScoreCategory.SuspectFound,
+            $"Suspect_Unlock_{index}"
+        );
 
         Debug.Log($"Unlock suspect: {index}");
 
@@ -46,5 +60,33 @@ public class SuspectManager : MonoBehaviour
             return false;
 
         return suspects[index].unlocked;
+    }
+
+    public void InterrogateSuspect(int index)
+    {
+        if (index < 0 || index >= suspects.Count) return;
+        if (suspects[index].interrogated) return;
+
+        suspects[index].interrogated = true;
+        suspects[index].canInterrogate = false;
+    }
+
+    public bool IsInterrogated(int index)
+    {
+        if (index < 0 || index >= suspects.Count)
+            return false;
+
+        return suspects[index].interrogated;
+    }
+
+    public void ResetState()
+    {
+        foreach (SuspectData suspect in suspects)
+        {
+            suspect.unlocked = false;
+            suspect.interrogated = false;
+            suspect.canInterrogate = false;
+        }
+        pendingPopupSuspect = -1;
     }
 }

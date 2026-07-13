@@ -30,6 +30,21 @@ public class DialogueManager : MonoBehaviour
     [Header("Evidence Popup")]
     public EvidencePopup evidencePopup;
 
+    [Header("Score")]
+    public bool isForensicDialogue;
+    public string forensicScoreKey = "Forensic_Base";
+
+    [Header("Jodi Interrogation")]
+    public bool isJodiInterrogationDialogue;
+
+    [Header("Trial Success")]
+    public bool isTrialSuccessDialogue;
+    public TrialSuccessPopupController trialSuccessPopup;
+
+    [Header("Game Over")]
+    public bool isGameOverDialogue;
+    public GameOverPopupController gameOverPopup;
+
     private DialogueData[] dialogues;
     private int currentIndex;
     private bool isTyping;
@@ -50,8 +65,7 @@ public class DialogueManager : MonoBehaviour
         dialogues = newDialogues;
         currentIndex = 0;
 
-        if (evidencePopup != null)
-            evidencePopup.Hide();
+        evidencePopup?.Hide();
 
         ShowDialogue();
     }
@@ -67,29 +81,42 @@ public class DialogueManager : MonoBehaviour
         daniText.text = "";
         nText.text = "";
 
+        evidencePopup?.Hide();
+
         if (current is EvidenceDialogueData evidenceData)
         {
-            evidencePopup.Show(
+            evidencePopup?.Show(
                 evidenceData.popupSprite,
                 evidenceData.evidenceTitle
             );
 
-            if (!ForensicManager.Instance.IsEvidenceUnlocked(evidenceData.evidenceID))
+            if (ForensicManager.Instance != null)
             {
-                ForensicEvidence newEvidence = new ForensicEvidence();
+                if (!ForensicManager.Instance.IsEvidenceUnlocked(evidenceData.evidenceID))
+                {
+                    ForensicEvidence newEvidence = new ForensicEvidence();
 
-                newEvidence.evidenceID = evidenceData.evidenceID;
-                newEvidence.evidenceName = evidenceData.evidenceTitle;
-                newEvidence.slotSprite = evidenceData.popupSprite;
-                newEvidence.tvSprite = evidenceData.tvSprite;
+                    newEvidence.evidenceID = evidenceData.evidenceID;
+                    newEvidence.evidenceName = evidenceData.evidenceTitle;
+                    newEvidence.slotSprite = evidenceData.popupSprite;
+                    newEvidence.tvSprite = evidenceData.tvSprite;
 
-                ForensicManager.Instance.AddEvidence(newEvidence);
+                    ForensicManager.Instance.AddEvidence(newEvidence);
+                }
             }
 
             if (evidenceData.evidenceID == "bukti_pundak")
             {
                 StartCoroutine(HideEvidenceAfterTyping());
             }
+        }
+
+        if (current is InterrogationEvidenceData interrogationEvidence)
+        {
+            evidencePopup?.Show(
+                interrogationEvidence.popupSprite,
+                interrogationEvidence.evidenceTitle
+            );
         }
 
         if (typingCoroutine != null)
@@ -156,23 +183,28 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
+        evidencePopup?.Hide();
+
         DialogueData finished = dialogues[currentIndex];
 
         if (finished.isWitness)
         {
             testimony?.SaveTestimony();
+            AwardTestimonyScore();
         }
 
         currentIndex++;
 
         if (currentIndex >= dialogues.Length)
         {
-            if (evidencePopup != null)
-                evidencePopup.Hide();
+            evidencePopup?.Hide();
+
+            AwardForensicScore();
+            MarkJodiInterrogationDone();
 
             OnDialogueEnded?.Invoke();
 
-            transisi?.PindahScene(nextScene);
+            HandleDialogueEnd();
             return;
         }
 
@@ -181,14 +213,60 @@ public class DialogueManager : MonoBehaviour
 
     public void SkipDialogue()
     {
-        if (evidencePopup != null)
-            evidencePopup.Hide();
+        evidencePopup?.Hide();
 
         testimony?.SaveTestimony();
+        AwardTestimonyScore();
+        AwardForensicScore();
+        MarkJodiInterrogationDone();
 
         OnDialogueEnded?.Invoke();
 
-        transisi?.PindahScene(nextScene);
+        HandleDialogueEnd();
+    }
+
+    void HandleDialogueEnd()
+    {
+        if (isGameOverDialogue)
+        {
+            gameOverPopup?.Show();
+        }
+        else if (isTrialSuccessDialogue)
+        {
+            trialSuccessPopup?.Show();
+        }
+        else
+        {
+            transisi?.PindahScene(nextScene);
+        }
+    }
+
+    void AwardTestimonyScore()
+    {
+        if (testimony == null) return;
+
+        ScoreManager.Instance?.AddScore(
+            100,
+            ScoreCategory.Testimony,
+            $"Testimony_{testimony.name}"
+        );
+    }
+
+    void AwardForensicScore()
+    {
+        if (!isForensicDialogue) return;
+
+        ScoreManager.Instance?.AddScore(
+            200,
+            ScoreCategory.ForensicDialogue,
+            forensicScoreKey
+        );
+    }
+
+    void MarkJodiInterrogationDone()
+    {
+        if (!isJodiInterrogationDialogue) return;
+        GameManager.Instance.jodiInterrogationCompleted = true;
     }
 
     IEnumerator HideEvidenceAfterTyping()
@@ -200,6 +278,6 @@ public class DialogueManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
-        evidencePopup.Hide();
+        evidencePopup?.Hide();
     }
 }

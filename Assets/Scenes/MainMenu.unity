@@ -213,6 +213,51 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!1 &313270442
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 313270444}
+  - component: {fileID: 313270443}
+  m_Layer: 0
+  m_Name: ScoreManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &313270443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 313270442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b82be21083cf3304ea949c5c62e61c3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxScore: 4600
+--- !u!4 &313270444
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 313270442}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1221.6136, y: 804.4871, z: 8.453857}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &330688258
 GameObject:
   m_ObjectHideFlags: 0
@@ -256,6 +301,144 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1245.9196, y: 728.7242, z: 6.565558}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &355149962
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 355149964}
+  - component: {fileID: 355149963}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &355149963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355149962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab08ac68edf32484caba910c909581c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventory: []
+  completedEvidence: []
+  hasKey: 0
+  hasSeenIntro: 0
+  tkp2Completed: 0
+  jodiInterrogationCompleted: 0
+  scoreEntries:
+  - evidenceID: tubuh_tkp
+    category: 0
+    points: 100
+  - evidenceID: table_tkp
+    category: 0
+    points: 100
+  - evidenceID: wardrobe_tkp
+    category: 0
+    points: 100
+  - evidenceID: door_tkp
+    category: 0
+    points: 100
+  - evidenceID: kalender_meja
+    category: 1
+    points: 100
+  - evidenceID: laptop_meja
+    category: 1
+    points: 100
+  - evidenceID: note_meja
+    category: 1
+    points: 100
+  - evidenceID: kertas_meja
+    category: 1
+    points: 100
+  - evidenceID: kunci_meja
+    category: 1
+    points: 100
+  - evidenceID: kamera_meja
+    category: 1
+    points: 100
+  - evidenceID: diary_meja
+    category: 1
+    points: 100
+  - evidenceID: foto_korban
+    category: 2
+    points: 100
+  - evidenceID: sertifikat
+    category: 2
+    points: 100
+  - evidenceID: koran_pintu
+    category: 3
+    points: 100
+  - evidenceID: pintubelakang
+    category: 3
+    points: 100
+  - evidenceID: jejak
+    category: 4
+    points: 100
+  - evidenceID: rokok
+    category: 4
+    points: 100
+  - evidenceID: pot
+    category: 4
+    points: 100
+  - evidenceID: darah
+    category: 4
+    points: 100
+  - evidenceID: mejabaskoro
+    category: 8
+    points: 100
+  - evidenceID: mapbaskoro
+    category: 8
+    points: 100
+  - evidenceID: map_baskoro
+    category: 11
+    points: 100
+  - evidenceID: pinbaskoro
+    category: 11
+    points: 100
+  - evidenceID: meja_tkp2
+    category: 9
+    points: 100
+  - evidenceID: brankas
+    category: 9
+    points: 100
+  - evidenceID: map2
+    category: 10
+    points: 100
+  - evidenceID: doc
+    category: 10
+    points: 100
+  - evidenceID: kartu
+    category: 10
+    points: 100
+  - evidenceID: fotobaskoro
+    category: 10
+    points: 100
+--- !u!4 &355149964
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355149962}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1335.6431, y: 943.00323, z: 7.2025857}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -458,54 +641,6 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &784317450
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 784317452}
-  - component: {fileID: 784317451}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &784317451
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 784317450}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab08ac68edf32484caba910c909581c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventory: []
-  completedEvidence: []
-  hasKey: 0
-  hasSeenIntro: 0
---- !u!4 &784317452
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 784317450}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1335.6431, y: 943.00323, z: 7.2025857}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -728,29 +863,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   suspects:
   - suspectName: Lestari
-    suspectImage: {fileID: 0}
     popupImage: {fileID: 21300000, guid: 3af5c0b7b03c6bb49898e9745c7a30d7, type: 3}
     unlocked: 0
     interrogated: 1
     canInterrogate: 0
+    isCulprit: 0
   - suspectName: Bagas
-    suspectImage: {fileID: 0}
     popupImage: {fileID: 21300000, guid: 3af5c0b7b03c6bb49898e9745c7a30d7, type: 3}
     unlocked: 0
     interrogated: 0
     canInterrogate: 1
+    isCulprit: 0
   - suspectName: Baskoro
-    suspectImage: {fileID: 0}
     popupImage: {fileID: 21300000, guid: ed7a48667f63e3c41bffe5d9feaf0170, type: 3}
     unlocked: 0
     interrogated: 0
     canInterrogate: 1
+    isCulprit: 0
   - suspectName: Jodi
-    suspectImage: {fileID: 0}
-    popupImage: {fileID: 21300000, guid: 3af5c0b7b03c6bb49898e9745c7a30d7, type: 3}
+    popupImage: {fileID: 21300000, guid: 200546d2142959740b615cd65290b66b, type: 3}
     unlocked: 0
     interrogated: 0
     canInterrogate: 1
+    isCulprit: 1
   pendingPopupSuspect: -1
 --- !u!224 &1140386567
 RectTransform:
@@ -890,6 +1025,97 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1240530375}
   m_CullTransparentMesh: 1
+--- !u!1 &1264955458
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1264955460}
+  - component: {fileID: 1264955459}
+  m_Layer: 0
+  m_Name: ArrestManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1264955459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264955458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0223babc892daf6498d5907dc0b9e1a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pendingWellDone: 0
+  lastArrestedIndex: -1
+  lastArrestWasCorrect: 0
+--- !u!4 &1264955460
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264955458}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1353.9347, y: 680.90094, z: 10.822357}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1284211694
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1284211696}
+  - component: {fileID: 1284211695}
+  m_Layer: 0
+  m_Name: TKPTimerManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1284211695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1284211694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af691ee8ca995314d9e5f0e8b24473f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1284211696
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1284211694}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1221.6136, y: 804.4871, z: 8.453857}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1436898908
 GameObject:
   m_ObjectHideFlags: 0
@@ -1426,6 +1652,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1677087836}
   m_CullTransparentMesh: 1
+--- !u!1 &1819753821
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1819753823}
+  - component: {fileID: 1819753822}
+  m_Layer: 0
+  m_Name: HighscoreManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1819753822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819753821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f91798db34f50e24d9c74dd3f2980bb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1819753823
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819753821}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1353.9347, y: 680.90094, z: 10.822357}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1846313501
 GameObject:
   m_ObjectHideFlags: 0
@@ -1654,6 +1924,10 @@ SceneRoots:
   - {fileID: 839553815}
   - {fileID: 1564945654}
   - {fileID: 973747227}
-  - {fileID: 784317452}
   - {fileID: 1140386567}
   - {fileID: 1231367368}
+  - {fileID: 355149964}
+  - {fileID: 313270444}
+  - {fileID: 1284211696}
+  - {fileID: 1819753823}
+  - {fileID: 1264955460}
