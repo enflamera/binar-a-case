@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: FlashlightData
   m_EditorClassIdentifier: 
   evidenceName: Senter Jodi
-  icon: {fileID: 21300000, guid: 121a70d7b166e154fa7f56561b5380f3, type: 3}
+  icon: {fileID: 21300000, guid: 975047fa2a5d2134598c0a16b68006a8, type: 3}
   analyzedIcon: {fileID: 21300000, guid: 975047fa2a5d2134598c0a16b68006a8, type: 3}
   isExamined: 0
-  isCollected: 1
+  isCollected: 0
   canAnalyze: 1
   isAnalyzed: 0
   description: 

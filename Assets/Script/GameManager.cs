@@ -24,9 +24,11 @@ public class GameManager : MonoBehaviour
     public bool tkp2Completed;
     public bool jodiInterrogationCompleted;
 
+    public bool hasUnseenEvidence;
+
     public EvidenceScoreEntry[] scoreEntries;
 
-    public event Action OnEvidenceCompleted;
+    public event Action OnInventoryChanged;
 
     void Awake()
     {
@@ -41,13 +43,21 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void AddEvidenceToInventory(EvidenceData data)
+    {
+        if (data == null || inventory.Contains(data)) return;
+
+        inventory.Add(data);
+        hasUnseenEvidence = true;
+        OnInventoryChanged?.Invoke();
+    }
+
     public void CompleteEvidence(string id)
     {
         if (!string.IsNullOrEmpty(id) && !completedEvidence.Contains(id))
         {
             completedEvidence.Add(id);
             AwardEvidenceScore(id);
-            OnEvidenceCompleted?.Invoke();
         }
     }
 
@@ -87,5 +97,6 @@ public class GameManager : MonoBehaviour
         seenIntroIDs.Clear();
         tkp2Completed = false;
         jodiInterrogationCompleted = false;
+        hasUnseenEvidence = false;
     }
 }
